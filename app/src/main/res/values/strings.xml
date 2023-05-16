@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Jumbled_words</string>
+    <string name="type_the_clue_here">      Type the clue here</string>
+    <string name="type_the_word_here">      Type the word here</string>
+</resources>
