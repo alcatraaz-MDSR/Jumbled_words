@@ -1,10 +1,12 @@
 package delta.mdsr.jumbled_words
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
@@ -32,15 +34,17 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity,"Enter the clue for the word",Toast.LENGTH_SHORT).show()
             }
             else {
-                val intent = Intent(this, second_activity::class.java)
+                val intent = Intent(this, Middle_activity::class.java)
                 intent.putExtra("Word",wordEntered)
                 intent.putExtra("Clue",clueEntered)
                 startActivity(intent)
            }
 
             }
-        }
+
+
     }
+}
 
 
 

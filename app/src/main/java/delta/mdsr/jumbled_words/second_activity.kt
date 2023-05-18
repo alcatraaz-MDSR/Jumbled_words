@@ -1,13 +1,14 @@
 package delta.mdsr.jumbled_words
 
-import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View.INVISIBLE
 import android.widget.Button
 import android.widget.EditText
 import android.widget.GridLayout
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -17,12 +18,28 @@ class second_activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val username = intent.getStringExtra("Username")
+
+        fun Data_saving(userName : String , Points : Int ){
+            val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+
+            editor.remove("username")
+            editor.remove("score")
+            editor.apply() // or editor.commit() for immediate deletion
+
+            editor.putString("username", userName)
+            editor.putInt("score", Points)
+            editor.apply()
+
+        }
+
         val timerTextView = findViewById<TextView>(R.id.tvtimer)
         fun playGame() {
             setContentView(R.layout.activity_second)
-            var clueEntered = intent.getStringExtra("Clue")
-            var wordEntered1: String = intent.getStringExtra("Word").toString()
-            var wordEntered = wordEntered1.replace("\\s".toRegex(), "")
+            val clueEntered = intent.getStringExtra("Clue")
+            val wordEntered1: String = intent.getStringExtra("Word").toString()
+            val wordEntered = wordEntered1.replace("\\s".toRegex(), "").toLowerCase()
             val hintString = "___   ".repeat(wordEntered.length)
 
 
@@ -31,31 +48,50 @@ class second_activity : AppCompatActivity() {
             val heart3 = findViewById<ImageView>(R.id.heart3)
 
             val answerSpace = findViewById<EditText>(R.id.anspace)
-            answerSpace.setBackgroundResource(android.R.color.transparent)
-            var answerChars = answerSpace.text.toString()
+            answerSpace.isFocusable = false
+            answerSpace.isFocusableInTouchMode = false
+            answerSpace.text.toString()
             answerSpace.hint = hintString
 
 
-            var infoBtn: Button = findViewById<Button>(R.id.infobtn)
+            var infoBtn: ImageButton? = findViewById<ImageButton>(R.id.infobtn)
             var infoBuilder = AlertDialog.Builder(this)
-            infoBtn.setOnClickListener() {
-                infoBuilder.setTitle("Clue: ")
-                    .setMessage(clueEntered)
-                    .setCancelable(true)
-                    .setNegativeButton("Okay") { dialogInterface, it ->
-                        dialogInterface.cancel()
+            if (infoBtn != null) {
+                infoBtn.setOnClickListener() {
+                    infoBuilder.setTitle("Clue: ")
+                        .setMessage(clueEntered)
+                        .setCancelable(true)
+                        .setNegativeButton("Okay") { dialogInterface, it ->
+                            dialogInterface.cancel()
+                        }
+                        .show()
+                }
+            }
+
+            //This function wont be necessary in future
+            fun stripRepeatingCharacters(input: String): String {
+                val strippedStringBuilder = StringBuilder()
+                var previousChar: Char? = null
+
+                for (char in input) {
+                    if (char != previousChar) {
+                        strippedStringBuilder.append(char)
+                        previousChar = char
                     }
-                    .show()
+                }
+
+                return strippedStringBuilder.toString()
             }
 
             fun gridSetter() {
-                var word = wordEntered
+                var word = stripRepeatingCharacters(wordEntered)
                 val shuffledLetters = word.toCharArray().toList().shuffled()
                 //Converted to .toList().shuffled() from .shuffled() since .shuffled() alone is not present in earlier versions of Kotlin
                 val alphabet = "abcdefghijklmnopqrstuvwxyz"
                 val remainingLetters =
                     (alphabet.toCharArray().toSet() - shuffledLetters.toSet()).shuffled()
                 val allLetters = shuffledLetters + remainingLetters.subList(0, 16 - shuffledLetters.size)
+                allLetters.shuffled()
                 val gridLayout = findViewById<GridLayout>(R.id.gridLayout)
                 gridLayout.rowCount = 4
                 gridLayout.columnCount = 4
@@ -123,7 +159,7 @@ class second_activity : AppCompatActivity() {
                 val countdownTimer = object : CountDownTimer(30000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         val secondsRemaining = millisUntilFinished / 1000
-                        timerTextView.text = "Time: $secondsRemaining seconds"
+                        timerTextView.text = "00:${secondsRemaining}"
                     }
 
                     override fun onFinish() {
@@ -136,17 +172,17 @@ class second_activity : AppCompatActivity() {
                         countOfAttempts += 1
                         when (countOfAttempts) {
                             1 -> {
-                                heart1.visibility = INVISIBLE
+                                heart1.setImageResource(R.drawable.unlife)
                                 Timer()
                             }
 
                             2 -> {
-                                heart2.visibility = INVISIBLE
+                                heart2.setImageResource(R.drawable.unlife)
                                 Timer()
                             }
 
                             3 -> {
-                                heart3.visibility = INVISIBLE
+                                heart3.setImageResource(R.drawable.unlife)
                                 Timer()
                             }
                         }
@@ -167,26 +203,38 @@ class second_activity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     when (countOfAttempts) {
-                        0 -> checkDialogGenerator(300)
-                        1 -> checkDialogGenerator(200)
-                        2 -> checkDialogGenerator(100)
+                        0 -> {checkDialogGenerator(300)
+                            if (username != null) {
+                                Data_saving(username,300)
+                            }
+                        }
+                        1 -> {checkDialogGenerator(200)
+                            if (username != null) {
+                                Data_saving(username,200)
+                            }
+                        }
+                        2 -> {checkDialogGenerator(100)
+                            if (username != null) {
+                                Data_saving(username,100)
+                            }
+                        }
                     }
                 } else {
                     countOfAttempts += 1
                     when (countOfAttempts) {
                         1 -> {
-                            heart1.visibility = INVISIBLE
-                         //   Timer()
+                            heart1.setImageResource(R.drawable.unlife)
+                            // Timer()
                         }
 
                         2 -> {
-                            heart2.visibility = INVISIBLE
-                        //    Timer()
+                            heart2.setImageResource(R.drawable.unlife)
+                            // Timer()
                         }
 
                         3 -> {
-                            heart3.visibility = INVISIBLE
-                         //   Timer()
+                            heart3.setImageResource(R.drawable.unlife)
+                            //  Timer()
                         }
                     }
                     Toast.makeText(

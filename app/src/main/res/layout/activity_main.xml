@@ -12,25 +12,27 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="93dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="cursive"
         android:text="WORD"
         android:textColor="#6CA8EA"
         android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2" />
 
     <Button
         android:id="@+id/btnstart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="69dp"
-        android:text="Start >"
+        android:layout_width="116dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/other_button_border"
+        android:text="Start  "
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#FFEB3B"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvpatent"
@@ -41,19 +43,22 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginBottom="87dp"
         android:fontFamily="cursive"
         android:text="JUMBLE"
         android:textColor="#6CA8EA"
         android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/etword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etword"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
+        android:layout_width="259dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="42dp"
         android:background="@drawable/bg_of_edittext"
         android:ems="10"
         android:hint="@string/type_the_word_here"
@@ -61,13 +66,16 @@
         android:textColor="@color/black"
         android:textColorHint="#6A6666"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/etclue"
         app:layout_constraintStart_toStartOf="@+id/tv_word"
-        app:layout_constraintTop_toBottomOf="@+id/tv_word" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
         android:id="@+id/etclue"
-        android:layout_width="239dp"
-        android:layout_height="56dp"
+        android:layout_width="258dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="458dp"
+        android:layout_marginBottom="200dp"
         android:background="@drawable/bg_of_edittext"
         android:ems="10"
         android:hint="@string/type_the_clue_here"
@@ -75,42 +83,66 @@
         android:textColor="@color/black"
         android:textColorHint="#686161"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvpatent"
+        app:layout_constraintEnd_toEndOf="@+id/etword"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_clue"
-        app:layout_constraintTop_toBottomOf="@+id/tv_clue" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="320dp"
         android:text="Word:"
         android:textColor="#FFEB3B"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_clue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="Clue:"
         android:textColor="#FFEB3B"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/etword"
-        app:layout_constraintTop_toBottomOf="@+id/etword" />
+        app:layout_constraintBottom_toTopOf="@+id/etclue"
+        app:layout_constraintStart_toStartOf="@+id/etword" />
 
     <TextView
         android:id="@+id/tvpatent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="cursive"
         android:text="Delta product (103122060)"
         android:textColor="#5A7A7E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="333dp"
+        android:layout_height="192dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.415"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.012"
+        app:srcCompat="@drawable/crown1" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="21dp"
+        android:layout_height="19dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/play" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
